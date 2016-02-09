@@ -2,7 +2,7 @@ class JobsController < ApplicationController
   before_action :find_job, only: [:show, :edit, :update, :destroy]
 
   def index
-    #list all jobs
+    @jobs = Job.all.order("created_at DESC")
   end
 
   def show
@@ -28,16 +28,21 @@ class JobsController < ApplicationController
   end
 
   def update
-    #update job
+    if @job.update(job_params)
+      redirect_to @job
+    else
+      render "Edit"
+    end
   end
 
   def destroy
-    #delete job
+    @job.destroy
+    redirect_to root_path
   end
 
   private
 
-  def jobs_params
+  def job_params
     params.require(:job).permit(:title, :description, :company, :url)
   end
 
