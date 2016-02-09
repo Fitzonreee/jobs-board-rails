@@ -1,5 +1,7 @@
 = simple_form_for(@job, html: { class: ""}) do |f|
+  = f.collection_select :category_id, Category.all, :id, :name, { prompt: "Choose a category"}
   = f.input :title, label: "Job Title"
+  = f.input :location, label: "Location"
   = f.input :description, label: "Job Description"
   = f.input :company, label: "Company name"
   = f.input :url, label: "Job Posting URL"
